@@ -18,7 +18,7 @@ Version 0.02
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 
 =head1 SYNOPSIS
@@ -116,7 +116,7 @@ Draws a 96-well overview of all the data:
  
     $ms->draw_all_curves('all_curves.png');
  
-=head2
+=head2 draw_curves
  
 Draws curves for the %data returned from group_stats. you can pass any Chart::ErrorBars parameters as a hash ref under `parameters`:
 
