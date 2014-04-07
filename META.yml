@@ -16,7 +16,7 @@ name: MultiSkan
 provides:
   MultiSkan:
     file: lib/MultiSkan.pm
-    version: 0.01
+    version: 0.02
 requires:
   Carp: 1.29
   Chart::ErrorBars: 2
@@ -25,4 +25,4 @@ requires:
   Statistics::Lite: 3.2
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.01
+version: 0.02

@@ -2,18 +2,18 @@
 use ExtUtils::MakeMaker;
 WriteMakefile
 (
+  'INSTALLDIRS' => 'site',
   'EXE_FILES' => [],
-  'NAME' => 'MultiSkan',
-  'PL_FILES' => {},
-  'VERSION_FROM' => 'lib/MultiSkan.pm',
   'PREREQ_PM' => {
                    'Chart::ErrorBars' => 2,
-                   'GD' => '2.52',
+                   'Test::More' => 0,
                    'Statistics::Lite' => '3.2',
                    'Moose' => '2.12',
-                   'Test::More' => 0,
-                   'Carp' => '1.29'
+                   'Carp' => '1.29',
+                   'GD' => '2.52'
                  },
-  'INSTALLDIRS' => 'site'
+  'PL_FILES' => {},
+  'VERSION_FROM' => 'lib/MultiSkan.pm',
+  'NAME' => 'MultiSkan'
 )
 ;

@@ -14,16 +14,21 @@ MultiSkan - The great new MultiSkan!
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 =head1 SYNOPSIS
 
-Used Multiskan™ FC Microplate Photometer (Thermo Scientific) for your experiment?Just got a text file as your output? Thinking it would be good if it had an app to give you an overview of all wells, and to help to group the data and do some simple stats for you? 
+Used Multiskan Microplate Photometer (Thermo Scientific) for your experiment? 
+ 
+Just got a text file as your output? 
+ 
+Thinking it would be good if it had an app to give you an overview of all wells, and to help to group the data and do some simple stats for you?
+
 GOOD! That means I'm not alone. This module does some simple tasks for you...
 
     use MultiSkan;
@@ -38,8 +43,11 @@ GOOD! That means I'm not alone. This module does some simple tasks for you...
     open my $fh, '<', $data_file;
     my $ms = MultiSkan->new(fh => $fh);
     my $A1 = $ms->A1; # quering well A1
+
 You can use
+
     my %data = $ms->group_stats(@groups); 
+
 to get the averages and standard deviations for each groups.
 Well, you can use `my @groups = qw/.../`, but then you lose the ability to comment out the groups you don't want for the final report...
  
@@ -74,7 +82,8 @@ You can use the following function to draw an overview to check out all the 96 w
  
     $ms->draw_all_curves('all_curves.png');
 
-All you can draw a selected set of data with averages and error bars...
+Or you can draw a selected set of data with averages and error bars...
+ 
     my %data = $ms->group_stats(@groups);
     $ms->draw_curves(
         'out_img' => 'curves.png',
@@ -86,14 +95,44 @@ All you can draw a selected set of data with averages and error bars...
             'min_val' => 0,
             'max_val' => 10,
             ...
+        },
     );
 
-Since `draw_curves` uses `Chart::ErrorBars' to draw the curves, you can pass all the valid `Chart::ErrorBars' parameters as part of the `parameters` argument. 
+Since "draw_curves" uses "Chart::ErrorBars" to draw the curves, you can pass all the valid "Chart::ErrorBars" parameters as part of the "parameters" argument.
 
 
 
 =head1 SUBROUTINES/METHODS
 
+=head2 group_stats
+ 
+This returns the stats (average and stddev) of the groups:
+ 
+    my %data = $ms->group_stats(@groups);
+ 
+=head2 draw_all_curves
+ 
+Draws a 96-well overview of all the data:
+ 
+    $ms->draw_all_curves('all_curves.png');
+ 
+=head2
+ 
+Draws curves for the %data returned from group_stats. you can pass any Chart::ErrorBars parameters as a hash ref under `parameters`:
+
+    $ms->draw_curves(
+        'out_img' => 'curves.png',
+        'height'  => 768,
+        'width'   => 1024,
+        'time'    => \@time,
+        'data'    => \%data,
+        'parameters' => {
+            'min_val' => 0,
+            'max_val' => 10,
+            ...
+            },
+        );
+ 
 =cut
 # Populating wells
 my @wells;
@@ -149,9 +188,7 @@ sub _build_time {
     return [@time];
 }
 
-=head2 function2
 
-=cut
 
 sub group_stats {
     my $self = shift;
@@ -191,6 +228,8 @@ sub group_stats {
     }
     return %data;
 }
+
+
 
 sub draw_all_curves {
     my $self = shift;
